@@ -1,0 +1,26 @@
+<header id="topnav">
+            <div class="inner">
+<!--                <a class="navbar-brand" href="#">-->
+<!--                <img src="static\senai_logo2.png" alt="..." height="36">-->
+<!--                </a>-->
+                <nav role='navigation'>
+                    <ul >
+                        {% if current_user.is_authenticated %}
+                            <li>
+                                <a class=""  href="{{url_for('produtos')}}">
+                                    Produto
+                                </a>
+                            </li>
+                            <li>
+                                <a class="" href="{{url_for('cadastro_usuario')}}">
+                                    Cadastro
+                                </a>
+                            </li>
+                            <li>
+                                <a class="" href="{{url_for('sair')}}">Sair</a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </nav>
+            </div>
+        </header>
