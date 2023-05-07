@@ -1,5 +1,5 @@
 from aplicacao import db, login_manager
-# UserMixin tem todos os métodos e atributos necessários para criar uma classse login
+# UserMixin tem todos os métodos e atributos necessários para criar uma classe login
 from flask_login import UserMixin
 
 
@@ -16,3 +16,4 @@ class Usuario(db.Model, UserMixin):
     usuario = db.Column(db.String, nullable= False)
     email =  db.Column(db.String, nullable= False, unique = True)
     senha = db.Column(db.String, nullable= False)
+
