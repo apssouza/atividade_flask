@@ -1,7 +1,8 @@
 from flask_wtf import FlaskForm
 #WTForms é uma bbolioteca que possui varios dados de elementos em html, ao instalar flask-wtf vem junto
-from wtforms import StringField, PasswordField, SubmitField, BooleanField
+from wtforms import StringField, PasswordField, SubmitField, FloatField
 from wtforms.validators import DataRequired, length, email, equal_to
+
 
 class FormLogin(FlaskForm):
     #validators recebe uma lista de validadores
@@ -16,3 +17,14 @@ class FormCadastrarUsuario(FlaskForm):
     confirmacao = PasswordField('Confirmar senha', validators=[DataRequired(),equal_to('senha')])
     submit_criar = SubmitField('Criar')
 
+
+class FormCadastrarProduto(FlaskForm):
+    nome = StringField('Nome do produto', validators=[DataRequired()])
+    tipo = StringField('Tipo do produto')
+    preco = FloatField('Preço do produto', validators=[DataRequired()])
+    submit_cadastrar = SubmitField('Criar')
+    # submit_excluir = SubmitField('Excluir')
+
+
+# class ConfirmarExclusaoForm(FlaskForm):
+#     submit_excluir = SubmitField('Excluir')

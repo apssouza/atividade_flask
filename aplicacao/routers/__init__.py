@@ -2,8 +2,8 @@ from flask_wtf import form
 
 from aplicacao import app, db, bcrypt
 from flask import redirect, render_template, url_for, flash
-from aplicacao.forms import FormLogin,FormCadastrarUsuario
-from aplicacao.models import Usuario
+from aplicacao.forms import FormLogin, FormCadastrarUsuario, FormCadastrarProduto#, ConfirmarExclusaoForm
+from aplicacao.models import Usuario, Produtos
 from flask_login import login_user,logout_user, login_required
 
 
@@ -46,13 +46,29 @@ def cadastro_usuario():
         return redirect('produtos')
     return render_template('cadastrar_usuario.html', form=form)
 
+@app.route('/excluir-usuario/<int:id>', methods=['GET', 'POST'])
+@login_required
+def excluir_usuario(id):
+    usuario = Usuario.query.get_or_404(id)
+    db.session.delete(usuario)
+    db.session.commit()
+    flash('Usuário excluído com sucesso.')
+    return redirect(url_for('produtos'))
+
 @app.route("/produtos")
 @login_required
 def produtos():
-    produtos = ['Caneca', 'Caneta', 'Caderno', 'TV', 'Notebook']
-    return render_template('lista_produto.html', nomes = produtos)
+    products = Produtos.query.all()
+    return render_template('lista_produto.html', produtos=products)
 
-@app.route('/cadastros')
-def cadastros():
-    cadastros = [{form.usuario}, {form.email}]
-    return render_template('lista_produto.html', nomes=cadastros)
+@app.route("/cadastro-produto", methods=['GET','POST'])
+@login_required
+def cadastro_produto():
+    form = FormCadastrarProduto()
+    # verificando se os campos estão preenchidos de acordo com o validador
+    if form.validate_on_submit():
+        prod = Produtos(nome=form.nome.data,tipo = form.tipo.data, preco = form.preco.data)
+        db.session.add(prod)
+        db.session.commit()
+        return redirect('produtos')
+    return render_template('cadastrar_produto.html', form=form)

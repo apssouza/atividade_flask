@@ -4,15 +4,16 @@
                     <ul >
                         {% if current_user.is_authenticated %}
                             <li>
-                                <a class=""  href="{{url_for('produtos')}}">
-                                    Produto
+                                <a class="" href="{{url_for('cadastro_usuario')}}">
+                                    Novo Usuário
                                 </a>
                             </li>
                             <li>
-                                <a class="" href="{{url_for('cadastro_usuario')}}">
-                                    Cadastro
+                                <a class=""  href="{{url_for('produtos')}}">
+                                    Produtos
                                 </a>
                             </li>
+
                             <li>
                                 <a class="" href="{{url_for('sair')}}">Sair</a>
                             </li>

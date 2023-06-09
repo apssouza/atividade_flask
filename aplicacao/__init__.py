@@ -16,5 +16,6 @@ login_manager.login_view = 'login'
 login_manager.login_message = 'Realize login para prosseguir'
 login_manager.login_message_category='alert-info'
 
+
 #precisa importar depois do app pq o router o utiliza
 from aplicacao import routers

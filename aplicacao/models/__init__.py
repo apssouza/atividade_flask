@@ -17,3 +17,19 @@ class Usuario(db.Model, UserMixin):
     email =  db.Column(db.String, nullable= False, unique = True)
     senha = db.Column(db.String, nullable= False)
 
+class Produtos(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    nome = db.Column(db.String(50), nullable= False)
+    tipo = db.Column(db.String(200))
+    preco = db.Column(db.Float, nullable= False)
+
+class Pedido(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    data = db.Column(db.Date, nullable=False)
+    cliente_id = db.Column(db.Integer, db.ForeignKey('cliente.id'), nullable=False)
+    cliente = db.relationship('Cliente', backref=db.backref('pedidos', lazy=True))
+
+class Cliente(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    nome = db.Column(db.String(50), nullable=False)
+    email = db.Column(db.String(50), nullable=False)
